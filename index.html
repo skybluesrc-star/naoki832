@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タクシー事業者様向け 2大助成金 活用ガイド</title>action
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #FDFBF8;
+            color: #374151;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://placehold.co/1200x600/3B82F6/FFFFFF?text=TAXI');
+            background-size: cover;
+            background-position: center;
+        }
+        .accent-color { background-color: #3B82F6; }
+        .accent-color-text { color: #3B82F6; }
+        .section-card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .step-item {
+            border-left: 3px solid #3B82F6;
+        }
+        .step-item:last-child {
+            border-left: 3px solid transparent;
+        }
+        .step-circle {
+            background-color: #3B82F6;
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .cta-button {
+            background-color: #2563EB;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #1D4ED8;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #3B82F6;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #3B82F6;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        /* サポート料金のフォントサイズを調整 */
+        .text-2xs {
+            font-size: 0.65rem; 
+        }
+        /* フォーム共通スタイル */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+
+        /* カスタムモーダルのスタイル */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            width: 400px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold accent-color-text">
+                <span class="text-gray-600">助成金活用</span>ガイド
+            </div>
+            <a href="#contact" class="cta-button font-bold py-2 px-4 rounded-lg shadow-md">
+                無料相談フォーム
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- Hero Section -->
+        <section class="text-center mb-16">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-4">
+                <span class="accent-color-text">新人運転手を雇用するとき、活用できます！</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                二種免許取得から正社員登用まで、**2つの助成金**を組み合わせ、強力に採用コストを圧縮しませんか？（キャリアアップ助成金2期分（80万円）支給の特例を適用し、**最大約100万円**のサポート！）
+            </p>
+        </section>
+
+        <!-- Interactive Subsidy Simulator (2種統合・2期支給対応) -->
+        <section id="simulator" class="section-card p-6 md:p-8 mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">2大助成金 合計助成額シミュレーター（1人あたり）</h2>
+                <p class="mt-2 text-gray-600">教習料金と研修時間を入力し、**助成金総額**の目安をご確認ください。</p>
+            </div>
+            <div class="max-w-2xl mx-auto space-y-6">
+                <!-- 教習料金スライダー -->
+                <div class="p-4 bg-gray-50 rounded-lg shadow-inner">
+                    <label for="drivingFee" class="block font-medium text-gray-700 mb-2">① おおよその教習料金: ¥<span id="feeValue" class="font-bold accent-color-text text-xl">250,000</span></label>
+                    <input type="range" id="drivingFee" min="150000" max="350000" step="10000" value="250000" class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                    <p class="text-xs text-gray-500 mt-1">人材開発支援助成金：経費助成（2/3相当、上限15万円、100円未満切捨）</p>
+                </div>
+
+                <!-- 研修時間スライダー -->
+                <div class="p-4 bg-gray-50 rounded-lg shadow-inner">
+                    <label for="trainingHours" class="block font-medium text-gray-700 mb-2">② 普通二種免許の研修時間（OFF-JT）: <span id="hoursValue" class="font-bold accent-color-text text-xl">30</span> 時間</label>
+                    <input type="range" id="trainingHours" min="10" max="60" value="30" step="5" class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                    <p class="text-xs text-gray-500 mt-1">人材開発支援助成金：賃金助成（800円/時間、100円未満切捨）</p>
+                </div>
+
+
+                <div class="mt-8 bg-blue-50 p-6 rounded-lg">
+                    
+                    <!-- 助成金の内訳グリッド -->
+                    <div class="grid grid-cols-3 gap-4 text-center border-b pb-4 mb-4 border-blue-200">
+                        <div>
+                            <p class="text-sm text-gray-600">経費助成額</p>
+                            <p class="text-xl font-bold text-gray-800">¥<span id="expenseSubsidy">150,000</span></p>
+                            <p class="text-xs text-gray-500">（免許取得費用など）</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">賃金助成額</p>
+                            <p class="text-xl font-bold text-gray-800">¥<span id="wageSubsidy">24,000</span></p>
+                            <p class="text-xs text-gray-500">（研修中の給与一部）</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">正社員化助成額（2期分）</p>
+                            <p class="text-xl font-bold text-gray-800">¥<span id="careerUpSubsidy">800,000</span></p>
+                            <p class="text-xs text-gray-500">（キャリアアップ助成金）</p>
+                        </div>
+                    </div>
+
+                    <p class="text-lg text-gray-700 text-center">予想される**合計**助成金額</p>
+                    <p class="text-4xl md:text-5xl font-bold accent-color-text my-2 text-center">¥<span id="totalSubsidy">974,000</span></p>
+                    
+                    <hr class="my-4 border-blue-200">
+                    <p class="text-sm text-gray-700 text-center">当事務所のサポート報酬 (税別)</p>
+                    <p class="text-xl font-bold text-gray-800 text-center">¥<span id="supportFee">267,850</span></p>
+                    <p class="text-2xs text-gray-500 text-center">※ 合計支給額の25% + 消費税10%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility Check -->
+        <section id="eligibility" class="section-card p-6 md:p-8 mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">2大助成金の受給対象か今すぐチェック</h2>
+                <p class="mt-2 text-gray-600">簡単な質問にお答えいただくだけで、助成金の対象となるかご確認いただけます。</p>
+            </div>
+            <div class="max-w-xl mx-auto space-y-4">
+                <div class="flex items-center">
+                    <input id="check1" name="check1" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="check1" class="ml-3 block text-md text-gray-700">雇用保険の適用事業所である</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="check2" name="check2" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="check2" class="ml-3 block text-md text-gray-700">新規採用の乗務員に10時間以上の研修（OFF-JT）を実施する予定だ</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="check3" name="check3" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="check3" class="ml-3 block text-md text-gray-700">6ヶ月以上の有期雇用期間を経て、正規雇用（正社員）に転換する予定がある</label>
+                </div>
+                <button id="checkButton" class="w-full mt-6 cta-button font-bold py-3 px-4 rounded-lg shadow-md">診断する</button>
+                <div id="eligibilityResult" class="hidden mt-4 p-4 rounded-md text-center"></div>
+            </div>
+        </section>
+
+        <!-- Simple Process Flow (キャリアアップ含む) -->
+        <section id="process" class="section-card p-6 md:p-8 mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">助成金連携による**最大約100万円**達成の流れ</h2>
+                <p class="mt-2 text-gray-600">人材育成から定着・戦力化まで、国の支援を最大限活用します。</p>
+            </div>
+            <div class="relative max-w-2xl mx-auto pl-8">
+                <div class="step-item pl-8 pb-8 relative">
+                    <div class="step-circle absolute -left-5 top-0 flex items-center justify-center font-bold text-lg rounded-full">1</div>
+                    <h3 class="text-xl font-bold text-gray-800">【人開金】計画届・免許取得・研修</h3>
+                    <p class="text-gray-600 mt-1">有期雇用契約で採用後、免許取得（経費助成）と座学研修（賃金助成）を実施。計画届を提出します。</p>
+                </div>
+                <div class="step-item pl-8 pb-8 relative">
+                    <div class="step-circle absolute -left-5 top-0 flex items-center justify-center font-bold text-lg rounded-full">2</div>
+                    <h3 class="text-xl font-bold text-gray-800">【人開金】助成金申請・受給</h3>
+                    <p class="text-gray-600 mt-1">研修終了後、人材開発支援助成金（経費・賃金）を申請します。</p>
+                </div>
+                <div class="step-item pl-8 pb-8 relative">
+                    <div class="step-circle absolute -left-5 top-0 flex items-center justify-center font-bold text-lg rounded-full">3</div>
+                    <h3 class="text-xl font-bold text-gray-800">【キャリアアップ】正社員へ転換 (1期目)</h3>
+                    <p class="text-gray-600 mt-1">有期雇用期間を経て、正規雇用へ転換。転換後、**6ヶ月経過**時点で1期分（40万円）を申請します。</p>
+                </div>
+                <div class="step-item pl-8 relative">
+                    <div class="step-circle absolute -left-5 top-0 flex items-center justify-center font-bold text-lg rounded-full">4</div>
+                    <h3 class="text-xl font-bold text-gray-800">【キャリアアップ】2期目申請（転換後合計1年で完結）</h3>
+                    <p class="text-gray-600 mt-1">1期目支給申請後、**さらに6ヶ月継続**して雇用（転換後合計1年）することで、2期分（40万円）を申請します。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section (Google Forms Integration) -->
+        <section id="contact" class="bg-white rounded-lg shadow-lg p-8 md:p-12">
+             <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold accent-color-text">無料相談・お問い合わせフォーム</h2>
+                <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">
+                    ご入力いただいたデータはGoogleフォームを通じて安全に送信されます。
+                </p>
+            </div>
+
+            <!-- 
+                --- Googleフォーム連携設定について ---
+                1. 以下の action="YOUR_GOOGLE_FORM_SUBMISSION_URL" を、作成したGoogleフォームの「回答を送信するためのURL」に置き換えてください。
+                2. 各 input フィールドの name="entry.XXXXXXXXXX" は仮のIDです。これも実際のGoogleフォームのフィールドIDに置き換えてください。
+            -->
+            <form 
+                id="subsidyForm" 
+                class="max-w-xl mx-auto space-y-6"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSf9cbtYd_O2d6_uW87AN9pgwnTT0NoAWKIdnPLsvb1WQG5CUA/viewform?usp=header" 
+                method="POST" 
+                target="_self"
+            >
+                <!-- 会社名 -->
+                <div>
+                    <label for="companyName" class="block text-sm font-medium text-gray-700">会社名 <span class="text-red-500">*</span></label>
+                    <input type="text" id="companyName" name="entry.188452033" required class="form-input mt-1" placeholder="〇〇交通株式会社">
+                </div>
+
+                <!-- 郵便番号 -->
+                <div>
+                    <label for="zipCode" class="block text-sm font-medium text-gray-700">郵便番号 (ハイフンなし7桁) <span class="text-red-500">*</span></label>
+                    <input type="number" id="zipCode" name="entry.1455325881" required class="form-input mt-1" placeholder="1000001" pattern="\d{7}" maxlength="7">
+                    <p id="zipCodeHint" class="text-xs text-gray-500 mt-1 hidden">郵便番号を入力すると、自動で住所が入力されます。</p>
+                </div>
+                
+                <!-- 住所 (郵便番号で自動入力される想定) -->
+                <div id="addressFields" class="hidden space-y-4 pt-2">
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700">住所 (自動入力) <span class="text-red-500">*</span></label>
+                        <input type="text" id="address" name="entry.528416625" required class="form-input mt-1 bg-gray-100" readonly>
+                        <p class="text-xs text-gray-500 mt-1">※ 実際は郵便番号入力後、ここまで自動入力されます。</p>
+                    </div>
+                </div>
+
+                <!-- 担当者名 -->
+                <div>
+                    <label for="personName" class="block text-sm font-medium text-gray-700">担当者名 <span class="text-red-500">*</span></label>
+                    <input type="text" id="personName" name="entry.886071536" required class="form-input mt-1" placeholder="山田 太郎">
+                </div>
+                
+                <!-- 電話番号 -->
+                <div>
+                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">電話番号 <span class="text-red-500">*</span></label>
+                    <input type="tel" id="phoneNumber" name="entry.174154483" required class="form-input mt-1" placeholder="0312345678" pattern="[0-9\-]*">
+                </div>
+
+                <!-- 保有車両台数 -->
+                <div>
+                    <label for="fleetSize" class="block text-sm font-medium text-gray-700">保有車両台数 <span class="text-red-500">*</span></label>
+                    <input type="number" id="fleetSize" name="entry.2064344490" required min="1" class="form-input mt-1" placeholder="50">
+                </div>
+                
+                <!-- 助成金支給確約チェックボックス (文言変更) -->
+                <div class="pt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div class="flex items-start">
+                        <input id="acknowledgementCheck" type="checkbox" class="mt-1 h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="acknowledgementCheck" class="ml-3 block text-sm font-medium text-red-700">
+                            助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button type="submit" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full">
+                        この内容で無料相談を申し込む
+                    </button>
+                    <p class="text-xs text-red-500 mt-2">※ 実際に送信するには、上記の `action` および `name` 属性をGoogleフォームのIDに置き換えてください。</p>
+                </div>
+            </form>
+        </section>
+
+        <!-- FAQ / Details -->
+        <section id="faq" class="section-card p-6 md:p-8 mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">よくあるご質問 (2大助成金編)</h2>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <details class="group bg-gray-50 p-4 rounded-lg cursor-pointer">
+                    <summary class="font-medium text-gray-800 flex justify-between items-center">
+                        キャリアアップ助成金が2期分（80万円）も出るのはなぜですか？
+                        <span class="transform transition-transform duration-300 group-open:rotate-180">&#9660;</span>
+                    </summary>
+                    <p class="text-gray-600 mt-2 pt-2 border-t">
+                        通常のキャリアアップ助成金（正社員化）は1期分（40万円）の支給ですが、**人材開発支援助成金**（二種免許取得のための研修）を利用した従業員を正社員に転換した場合に限り、「正社員転換後の賃金規定改定」を伴うことで、2期分の申請が可能になります。具体的には、正社員化後**6ヶ月経過時（1期40万円）**と、さらに**6ヶ月経過時（2期40万円）**の合計**80万円**を最大限活用でき、正社員化後の定着を強力に促進します。
+                    </p>
+                </details>
+                <details class="group bg-gray-50 p-4 rounded-lg cursor-pointer">
+                    <summary class="font-medium text-gray-800 flex justify-between items-center">
+                        賃金助成はいくらくらい出ますか？
+                        <span class="transform transition-transform duration-300 group-open:rotate-180">&#9660;</span>
+                    </summary>
+                    <p class="text-gray-600 mt-2 pt-2 border-t">
+                        人材開発支援助成金：研修を実施した時間に応じて支給されます。中小企業で**有期雇用社員**を対象とする場合、1時間あたり**800円**（令和7年度も同額を想定）が支給されます。シミュレーターでは、お客様が入力された研修時間に基づいて計算しています。
+                    </p>
+                </details>
+                <details class="group bg-gray-50 p-4 rounded-lg cursor-pointer">
+                    <summary class="font-medium text-gray-800 flex justify-between items-center">
+                        サポート料金は合計助成額の25%で、税込みいくらになりますか？
+                        <span class="transform transition-transform duration-300 group-open:rotate-180">&#9660;</span>
+                    </summary>
+                    <p class="text-gray-600 mt-2 pt-2 border-t">
+                        サポート料金は**助成金支給額の25%（成功報酬、税別）**です。これに消費税10%を加算した額が、お支払いいただく総額となります。シミュレーターでは、合計助成額に応じて自動的に計算された税込みの目安額（四捨五入）を表示しています。
+                    </p>
+                </details>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
+            <p>&copy; 2025 ●●社会保険労務士事務所. All Rights Reserved. (助成金金額は令和7年度の動向を想定)</p>
+        </div>
+    </footer>
+    
+    <!-- カスタムモーダル (アラートの代替) -->
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-red-600 mb-4">確認が必要です</h3>
+            <!-- モーダル内の文言を更新 -->
+            <p class="text-gray-700 mb-6">フォームを送信するには、**助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。**のチェックボックスにチェックを入れてください。</p>
+            <button id="closeModal" class="w-full cta-button font-bold py-2 px-4 rounded-lg">閉じる</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- シミュレーターロジック ---
+            const drivingFeeSlider = document.getElementById('drivingFee');
+            const feeValue = document.getElementById('feeValue');
+            const trainingHoursSlider = document.getElementById('trainingHours');
+            const hoursValue = document.getElementById('hoursValue');
+
+            const expenseSubsidyElement = document.getElementById('expenseSubsidy');
+            const wageSubsidyElement = document.getElementById('wageSubsidy');
+            const careerUpSubsidyElement = document.getElementById('careerUpSubsidy'); 
+            const totalSubsidyElement = document.getElementById('totalSubsidy');
+            const supportFee = document.getElementById('supportFee');
+
+            // 助成金定数 (令和7年度想定)
+            const WAGE_SUBSIDY_RATE = 800;          // 人開金 賃金助成（中小企業/有期）
+            const EXPENSE_RATE = 2 / 3;             // 人開金 経費助成率
+            const EXPENSE_MAX = 150000;             // 人開金 経費助成上限
+            const CAREER_UP_BASIC_FY7 = 400000;     // キャリアアップ助成金（中小企業/正社員化・基本額 1期分）
+            const TOTAL_CAREER_UP = 2 * CAREER_UP_BASIC_FY7; // 2期分特例を適用 800,000円
+
+            const SUCCESS_FEE_RATE = 0.25; // 25% 税別
+            const TAX_RATE = 0.10;
+
+            function floorToHundred(amount) {
+                // 100円未満切り捨て
+                return Math.floor(amount / 100) * 100;
+            }
+
+            function updateSimulator() {
+                const drivingFee = parseInt(drivingFeeSlider.value);
+                const trainingHours = parseInt(trainingHoursSlider.value);
+
+                feeValue.textContent = drivingFee.toLocaleString();
+                hoursValue.textContent = trainingHours;
+                
+                // 人材開発支援助成金 - 経費 (上限15万円)
+                const calculatedExpense = drivingFee * EXPENSE_RATE; 
+                const preRoundedExpense = Math.min(calculatedExpense, EXPENSE_MAX);
+                const expenseSubsidy = floorToHundred(preRoundedExpense); 
+
+                // 人材開発支援助成金 - 賃金 (800円/時)
+                const preRoundedWage = trainingHours * WAGE_SUBSIDY_RATE;
+                const wageSubsidy = floorToHundred(preRoundedWage);
+                
+                // キャリアアップ助成金 - 正社員化 (2期分特例を適用)
+                const careerUpSubsidy = TOTAL_CAREER_UP;
+
+                // 2大助成金の合計額
+                const totalSubsidy = expenseSubsidy + wageSubsidy + careerUpSubsidy;
+
+                // 成功報酬（合計助成額の25% + 消費税10%）
+                const feeBase = totalSubsidy * SUCCESS_FEE_RATE;
+                const feeTax = feeBase * TAX_RATE;
+                // 報酬は四捨五入して整数で表示
+                const totalFee = Math.round(feeBase + feeTax); 
+
+                // UIの更新
+                expenseSubsidyElement.textContent = expenseSubsidy.toLocaleString();
+                wageSubsidyElement.textContent = wageSubsidy.toLocaleString();
+                careerUpSubsidyElement.textContent = careerUpSubsidy.toLocaleString();
+                totalSubsidyElement.textContent = totalSubsidy.toLocaleString();
+                supportFee.textContent = totalFee.toLocaleString();
+            }
+
+            drivingFeeSlider.addEventListener('input', updateSimulator);
+            trainingHoursSlider.addEventListener('input', updateSimulator);
+            updateSimulator();
+
+
+            // --- 適格性チェックロジック ---
+            const checkButton = document.getElementById('checkButton');
+            const eligibilityResult = document.getElementById('eligibilityResult');
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const check3 = document.getElementById('check3'); 
+
+            checkButton.addEventListener('click', () => {
+                const isEligible = check1.checked && check2.checked && check3.checked;
+                eligibilityResult.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+                if (isEligible) {
+                    eligibilityResult.textContent = '素晴らしい！2大助成金（人開金＆キャリアアップ2期特例）の対象となる可能性が非常に高いです。最大約100万円のサポートが見込めます。';
+                    eligibilityResult.classList.add('bg-green-100', 'text-green-800');
+                } else {
+                    eligibilityResult.textContent = 'いずれかの条件を満たしていないようです。ただし、状況によって一部の助成金のみ対象となる場合もございますので、一度専門家にご相談ください。';
+                    eligibilityResult.classList.add('bg-red-100', 'text-red-800');
+                }
+                eligibilityResult.classList.remove('hidden');
+            });
+
+            // --- フォームロジック（郵便番号自動入力の模擬） ---
+            const zipCodeInput = document.getElementById('zipCode');
+            const addressFields = document.getElementById('addressFields');
+            const addressInput = document.getElementById('address');
+            const zipCodeHint = document.getElementById('zipCodeHint');
+            
+            zipCodeInput.addEventListener('input', () => {
+                const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
+                
+                zipCodeHint.classList.remove('hidden');
+                
+                if (zipCode.length === 7) {
+                    // 7桁入力されたら住所を模擬的に自動入力
+                    addressFields.classList.remove('hidden');
+                    addressInput.value = '（自動入力のデモ住所：東京都千代田区）'; // 模擬データ
+                    zipCodeHint.textContent = '住所が自動入力されました。';
+                    zipCodeHint.classList.add('text-blue-600');
+                    zipCodeHint.classList.remove('text-gray-500');
+
+                } else {
+                    // 7桁未満の場合はリセット
+                    addressFields.classList.add('hidden');
+                    addressInput.value = '';
+                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。';
+                    zipCodeHint.classList.add('text-gray-500');
+                    zipCodeHint.classList.remove('text-blue-600');
+                }
+            });
+
+
+            // --- フォーム送信とチェックボックス制御ロジック ---
+            const subsidyForm = document.getElementById('subsidyForm');
+            const acknowledgementCheck = document.getElementById('acknowledgementCheck');
+            const alertModal = document.getElementById('alertModal');
+            const closeModal = document.getElementById('closeModal');
+
+            // カスタムモーダル表示関数
+            function openModal() {
+                alertModal.classList.add('open');
+            }
+
+            // カスタムモーダル非表示関数
+            function closeModalHandler() {
+                alertModal.classList.remove('open');
+            }
+
+            // モーダルを閉じるイベントリスナー
+            closeModal.addEventListener('click', closeModalHandler);
+            alertModal.addEventListener('click', (e) => {
+                // オーバーレイをクリックした場合も閉じる
+                if (e.target.id === 'alertModal') {
+                    closeModalHandler();
+                }
+            });
+
+            // フォーム送信制御
+            subsidyForm.addEventListener('submit', (e) => {
+                if (!acknowledgementCheck.checked) {
+                    e.preventDefault(); // 送信を中止
+                    openModal();        // モーダルを表示
+                    // チェックボックスの位置までスクロールして注意を促す
+                    acknowledgementCheck.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                // チェックされている場合はそのまま送信される
+            });
+
+
+            // --- スムーズスクロールロジック ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
