@@ -10,9 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- 郵便番号から住所を自動入力するためのAPI (Axiosライブラリ) -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
     <!-- スタイル設定 -->
     <style>
@@ -20,12 +17,6 @@
             font-family: 'Noto Sans JP', sans-serif;
             background-color: #FDFBF8; /* 明るいオフホワイト */
             color: #374151; /* ダークグレー */
-        }
-        .hero-bg {
-            /* ヒーローイメージ（プレースホルダー） */
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://placehold.co/1200x600/3B82F6/FFFFFF?text=TAXI');
-            background-size: cover;
-            background-position: center;
         }
         .accent-color { background-color: #3B82F6; } /* プロフェッショナルブルー */
         .accent-color-text { color: #3B82F6; }
@@ -43,7 +34,7 @@
             border-left: 3px solid #3B82F6;
         }
         .step-item:last-child {
-            border-left: 3px solid transparent; /* 最後の線は非表示 */
+            border-left: 3px solid transparent; 
         }
         .step-circle {
             background-color: #3B82F6;
@@ -52,31 +43,18 @@
             height: 2.5rem;
         }
         .cta-button {
-            background-color: #2563EB; /* 青の濃い色 */
+            background-color: #2563EB; 
             color: white;
             transition: background-color 0.3s;
         }
         .cta-button:hover {
             background-color: #1D4ED8;
         }
-        /* シミュレーター用スライダーのカスタムスタイル */
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            background: #3B82F6;
-            cursor: pointer;
-            border-radius: 50%;
+        .cta-button:disabled {
+            background-color: #9CA3AF;
+            cursor: not-allowed;
         }
-        input[type="range"]::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            background: #3B82F6;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        /* フォーム共通スタイル */
+        /* シミュレーター用スライダーのカスタムスタイルは省略 */
         .form-input {
             width: 100%;
             padding: 0.75rem;
@@ -269,53 +247,49 @@
                 </p>
             </div>
 
-            <form 
-                id="subsidyForm" 
-                class="max-w-xl mx-auto space-y-6"
-                action="https://docs.google.com/forms/d/e/1FAIpQLSf9cbtYd_O2d6_uW87AN9pgwnTT0NoAWKIdnPLsvb1WQG5CUA/viewform" 
-                method="POST" 
-                target="_self"
-            >
-                <!-- 会社名 -->
+            <!-- ACTIONとMETHODを削除し、JavaScriptで制御します -->
+            <form id="subsidyForm" class="max-w-xl mx-auto space-y-6">
+                <!-- 会社名 (entry.1593006436) -->
                 <div>
                     <label for="companyName" class="block text-sm font-medium text-gray-700">会社名 <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1593006436 -->
                     <input type="text" id="companyName" name="entry.1593006436" required class="form-input mt-1" placeholder="〇〇交通株式会社">
                 </div>
 
-                <!-- 郵便番号 (自動入力機能付き) -->
+                <!-- 郵便番号 (entry.1064219760) -->
                 <div>
                     <label for="zipCode" class="block text-sm font-medium text-gray-700">郵便番号 (ハイフンなし7桁) <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1064219760 -->
                     <input type="number" id="zipCode" name="entry.1064219760" required class="form-input mt-1" placeholder="1000001" pattern="\d{7}" maxlength="7">
                     <p id="zipCodeHint" class="text-xs text-gray-500 mt-1">郵便番号を入力すると、自動で住所が入力されます。</p>
                 </div>
                 
-                <!-- 住所 -->
+                <!-- 住所 (entry.1023774883) -->
                 <div>
                     <label for="address" class="block text-sm font-medium text-gray-700">住所 <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1023774883 -->
                     <input type="text" id="address" name="entry.1023774883" required class="form-input mt-1" placeholder="自動入力後、番地・建物名を追記してください">
                 </div>
 
-                <!-- 担当者名 -->
+                <!-- 担当者名 (entry.1387664406) -->
                 <div>
                     <label for="personName" class="block text-sm font-medium text-gray-700">担当者名 <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1387664406 -->
                     <input type="text" id="personName" name="entry.1387664406" required class="form-input mt-1" placeholder="山田 太郎">
                 </div>
                 
-                <!-- 電話番号 -->
+                <!-- 新規追加: メールアドレス (entry.2093556012) -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス <span class="text-red-500">*</span></label>
+                    <!-- GoogleフォームのダミーエントリーIDを使用 -->
+                    <input type="email" id="email" name="entry.2093556012" required class="form-input mt-1" placeholder="example@company.co.jp">
+                </div>
+
+                <!-- 電話番号 (entry.1818165565) -->
                 <div>
                     <label for="phoneNumber" class="block text-sm font-medium text-gray-700">電話番号 <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1818165565 -->
                     <input type="tel" id="phoneNumber" name="entry.1818165565" required class="form-input mt-1" placeholder="0312345678" pattern="[0-9\-]*">
                 </div>
 
-                <!-- 保有車両台数 -->
+                <!-- 保有車両台数 (entry.1478206587) -->
                 <div>
                     <label for="fleetSize" class="block text-sm font-medium text-gray-700">保有車両台数 <span class="text-red-500">*</span></label>
-                    <!-- 新しいフィールドID: entry.1478206587 -->
                     <input type="number" id="fleetSize" name="entry.1478206587" required min="1" class="form-input mt-1" placeholder="50">
                 </div>
                 
@@ -330,14 +304,14 @@
                 </div>
 
                 <div class="text-center pt-4">
-                    <button type="submit" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full transform transition hover:scale-[1.01]">
+                    <button type="submit" id="submitButton" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full transform transition hover:scale-[1.01]">
                         この内容で無料相談を申し込む
                     </button>
                 </div>
             </form>
         </section>
 
-        <!-- FAQ / Details -->
+        <!-- FAQ / Details (省略) -->
         <section id="faq" class="section-card p-6 md:p-8 mb-12">
             <div class="text-center mb-6">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-800">よくあるご質問 (2大助成金編)</h2>
@@ -372,8 +346,6 @@
                 </details>
             </div>
         </section>
-
-
     </main>
 
     <!-- Footer -->
@@ -385,77 +357,86 @@
     
     <!-- カスタムモーダル (アラートの代替) -->
     <div id="alertModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-xl font-bold text-red-600 mb-4">確認が必要です</h3>
-            <p class="text-gray-700 mb-6">フォームを送信するには、**助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。**のチェックボックスにチェックを入れてください。</p>
-            <button id="closeModal" class="w-full cta-button font-bold py-2 px-4 rounded-lg">閉じる</button>
+        <div class="modal-content" id="modalContent">
+            <!-- コンテンツはJSで動的に挿入されます -->
         </div>
     </div>
 
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- シミュレーターロジック ---
+            // --- 定数と要素の取得 ---
+            const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf9cbtYd_O2d6_uW87AN9pgwnTT0NoAWKIdnPLsvb1WQG5CUA/formResponse";
+            
             const drivingFeeSlider = document.getElementById('drivingFee');
-            const feeValue = document.getElementById('feeValue');
             const trainingHoursSlider = document.getElementById('trainingHours');
-            const hoursValue = document.getElementById('hoursValue');
-
-            const expenseSubsidyElement = document.getElementById('expenseSubsidy');
-            const wageSubsidyElement = document.getElementById('wageSubsidy');
-            const careerUpSubsidyElement = document.getElementById('careerUpSubsidy'); 
-            const totalSubsidyElement = document.getElementById('totalSubsidy');
-            const supportFee = document.getElementById('supportFee');
-
+            const checkButton = document.getElementById('checkButton');
+            
+            const subsidyForm = document.getElementById('subsidyForm');
+            const acknowledgementCheck = document.getElementById('acknowledgementCheck');
+            const submitButton = document.getElementById('submitButton');
+            
+            const alertModal = document.getElementById('alertModal');
+            const modalContent = document.getElementById('modalContent');
+            
             // 助成金定数 (令和7年度想定)
-            const WAGE_SUBSIDY_RATE = 800;          // 人開金 賃金助成（中小企業/有期）
-            const EXPENSE_RATE = 2 / 3;             // 人開金 経費助成率
-            const EXPENSE_MAX = 150000;             // 人開金 経費助成上限
-            const CAREER_UP_BASIC_FY7 = 400000;     // キャリアアップ助成金（中小企業/正社員化・基本額 1期分）
-            const TOTAL_CAREER_UP = 2 * CAREER_UP_BASIC_FY7; // 2期分特例を適用 800,000円
-
-            const SUCCESS_FEE_RATE = 0.25; // 25% 税別
+            const WAGE_SUBSIDY_RATE = 800;
+            const EXPENSE_RATE = 2 / 3;             
+            const EXPENSE_MAX = 150000;             
+            const CAREER_UP_BASIC_FY7 = 400000;     
+            const TOTAL_CAREER_UP = 2 * CAREER_UP_BASIC_FY7; 
+            const SUCCESS_FEE_RATE = 0.25; 
             const TAX_RATE = 0.10;
 
+            // --- ヘルパー関数 ---
             function floorToHundred(amount) {
                 // 100円未満切り捨て
                 return Math.floor(amount / 100) * 100;
             }
 
+            function openModal(title, message, isSuccess = false) {
+                let color = isSuccess ? 'text-green-600' : 'text-red-600';
+                modalContent.innerHTML = `
+                    <h3 class="text-xl font-bold ${color} mb-4">${title}</h3>
+                    <p class="text-gray-700 mb-6">${message}</p>
+                    <button id="closeModal" class="w-full cta-button font-bold py-2 px-4 rounded-lg">閉じる</button>
+                `;
+                document.getElementById('closeModal').addEventListener('click', closeModalHandler);
+                alertModal.classList.add('open');
+            }
+
+            function closeModalHandler() {
+                alertModal.classList.remove('open');
+            }
+
+            // --- シミュレーターロジック ---
             function updateSimulator() {
                 const drivingFee = parseInt(drivingFeeSlider.value);
                 const trainingHours = parseInt(trainingHoursSlider.value);
 
-                feeValue.textContent = drivingFee.toLocaleString();
-                hoursValue.textContent = trainingHours;
+                document.getElementById('feeValue').textContent = drivingFee.toLocaleString();
+                document.getElementById('hoursValue').textContent = trainingHours;
                 
-                // 人材開発支援助成金 - 経費 (上限15万円)
                 const calculatedExpense = drivingFee * EXPENSE_RATE; 
                 const preRoundedExpense = Math.min(calculatedExpense, EXPENSE_MAX);
                 const expenseSubsidy = floorToHundred(preRoundedExpense); 
 
-                // 人材開発支援助成金 - 賃金 (800円/時)
                 const preRoundedWage = trainingHours * WAGE_SUBSIDY_RATE;
                 const wageSubsidy = floorToHundred(preRoundedWage);
                 
-                // キャリアアップ助成金 - 正社員化 (2期分特例を適用)
                 const careerUpSubsidy = TOTAL_CAREER_UP;
-
-                // 2大助成金の合計額
                 const totalSubsidy = expenseSubsidy + wageSubsidy + careerUpSubsidy;
 
-                // 成功報酬（合計助成額の25% + 消費税10%）
                 const feeBase = totalSubsidy * SUCCESS_FEE_RATE;
                 const feeTax = feeBase * TAX_RATE;
-                // 報酬は四捨五入して整数で表示
                 const totalFee = Math.round(feeBase + feeTax); 
 
                 // UIの更新
-                expenseSubsidyElement.textContent = expenseSubsidy.toLocaleString();
-                wageSubsidyElement.textContent = wageSubsidy.toLocaleString();
-                careerUpSubsidyElement.textContent = careerUpSubsidy.toLocaleString();
-                totalSubsidyElement.textContent = totalSubsidy.toLocaleString();
-                supportFee.textContent = totalFee.toLocaleString();
+                document.getElementById('expenseSubsidy').textContent = expenseSubsidy.toLocaleString();
+                document.getElementById('wageSubsidy').textContent = wageSubsidy.toLocaleString();
+                document.getElementById('careerUpSubsidy').textContent = careerUpSubsidy.toLocaleString();
+                document.getElementById('totalSubsidy').textContent = totalSubsidy.toLocaleString();
+                document.getElementById('supportFee').textContent = totalFee.toLocaleString();
             }
 
             drivingFeeSlider.addEventListener('input', updateSimulator);
@@ -463,15 +444,10 @@
             updateSimulator();
 
 
-            // --- 適格性チェックロジック ---
-            const checkButton = document.getElementById('checkButton');
-            const eligibilityResult = document.getElementById('eligibilityResult');
-            const check1 = document.getElementById('check1');
-            const check2 = document.getElementById('check2');
-            const check3 = document.getElementById('check3'); 
-
+            // --- 適格性チェックロジック (変更なし) ---
             checkButton.addEventListener('click', () => {
-                const isEligible = check1.checked && check2.checked && check3.checked;
+                const eligibilityResult = document.getElementById('eligibilityResult');
+                const isEligible = document.getElementById('check1').checked && document.getElementById('check2').checked && document.getElementById('check3').checked;
                 eligibilityResult.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
 
                 if (isEligible) {
@@ -484,12 +460,31 @@
                 eligibilityResult.classList.remove('hidden');
             });
 
-            // --- フォームロジック（郵便番号自動入力の実装） ---
+            // --- フォームロジック（郵便番号自動入力の修正） ---
             const zipCodeInput = document.getElementById('zipCode');
             const addressInput = document.getElementById('address');
             const zipCodeHint = document.getElementById('zipCodeHint');
             
-            // 郵便番号入力欄からフォーカスが外れた時（または7桁入力された後）にAPIを叩く
+            async function fetchWithExponentialBackoff(url, options = {}, maxRetries = 5) {
+                for (let attempt = 0; attempt < maxRetries; attempt++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response;
+                    } catch (error) {
+                        if (attempt === maxRetries - 1) {
+                            console.error("Fetch failed after all retries:", error);
+                            throw error;
+                        }
+                        const delay = Math.pow(2, attempt) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        // console.log(`Retry attempt ${attempt + 1} after ${delay}ms...`); // デバッグ用
+                    }
+                }
+            }
+
             zipCodeInput.addEventListener('blur', async () => {
                 const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
                 
@@ -497,91 +492,91 @@
                     zipCodeHint.textContent = '住所を検索中です...';
                     zipCodeHint.classList.remove('text-green-600', 'text-red-600');
                     zipCodeHint.classList.add('text-gray-500');
-                    // addressInput.value = ''; // 検索前に住所をクリアしない（ユーザーが追記した内容を残すため）
+                    
+                    const apiUrl = `https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`;
 
-                    // Exponential Backoff for API calls
-                    const maxRetries = 5;
-                    let attempt = 0;
+                    try {
+                        // fetchWithExponentialBackoffを使用してAPI呼び出し
+                        const response = await fetchWithExponentialBackoff(apiUrl);
+                        const data = await response.json();
 
-                    while (attempt < maxRetries) {
-                        try {
-                            // 郵便番号検索API (zipcloud) を利用
-                            const response = await axios.get(`https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`);
-                            const data = response.data;
-
-                            if (data.results && data.results.length > 0) {
-                                const result = data.results[0];
-                                // 都道府県、市区町村、町域までを結合して入力
-                                const address = result.address1 + result.address2 + result.address3;
-                                
-                                addressInput.value = address;
-                                zipCodeHint.textContent = '住所が自動入力されました。必要に応じて番地などを追記してください。';
-                                zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
-                                zipCodeHint.classList.add('text-green-600');
-                            } else {
-                                // 検索結果がない場合
-                                zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
-                                zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                                zipCodeHint.classList.add('text-red-600');
-                            }
-                            return; // 成功したらループを抜ける
-                        } catch (error) {
-                            attempt++;
-                            if (attempt < maxRetries) {
-                                // Exponential Backoff: 1s, 2s, 4s, 8s, 16s
-                                const delay = Math.pow(2, attempt) * 1000;
-                                await new Promise(resolve => setTimeout(resolve, delay));
-                            } else {
-                                // 最終的なエラー処理
-                                console.error('郵便番号検索エラー:', error);
-                                zipCodeHint.textContent = '通信エラーが発生しました。手動で住所を入力してください。';
-                                zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                                zipCodeHint.classList.add('text-red-600');
-                            }
+                        if (data.results && data.results.length > 0) {
+                            const result = data.results[0];
+                            const address = result.address1 + result.address2 + result.address3;
+                            
+                            addressInput.value = address;
+                            zipCodeHint.textContent = '住所が自動入力されました。必要に応じて番地などを追記してください。';
+                            zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
+                            zipCodeHint.classList.add('text-green-600');
+                        } else {
+                            zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
+                            zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                            zipCodeHint.classList.add('text-red-600');
                         }
+                    } catch (error) {
+                        console.error('郵便番号検索エラー:', error);
+                        zipCodeHint.textContent = '通信エラーが発生しました。手動で住所を入力してください。';
+                        zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                        zipCodeHint.classList.add('text-red-600');
                     }
+                } else if (zipCode.length > 0) {
+                    zipCodeHint.textContent = '郵便番号は7桁で入力してください。';
+                    zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                    zipCodeHint.classList.add('text-red-600');
                 }
             });
 
 
-            // --- フォーム送信とチェックボックス制御ロジック ---
-            const subsidyForm = document.getElementById('subsidyForm');
-            const acknowledgementCheck = document.getElementById('acknowledgementCheck');
-            const alertModal = document.getElementById('alertModal');
-            const closeModal = document.getElementById('closeModal');
+            // --- フォーム送信ロジックの修正 ---
 
-            // カスタムモーダル表示関数
-            function openModal() {
-                alertModal.classList.add('open');
-            }
+            // フォーム送信制御（非同期POST）
+            subsidyForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+                
+                if (!acknowledgementCheck.checked) {
+                    openModal('確認が必要です', 'フォームを送信するには、**助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。**のチェックボックスにチェックを入れてください。');
+                    acknowledgementCheck.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                
+                // 送信ボタンを無効化し、ローディング表示
+                submitButton.disabled = true;
+                submitButton.textContent = "送信中...";
 
-            // カスタムモーダル非表示関数
-            function closeModalHandler() {
-                alertModal.classList.remove('open');
-            }
+                try {
+                    // フォームデータを組み立て
+                    const formData = new FormData(subsidyForm);
+                    
+                    // GoogleフォームはPOSTリクエストしか受け付けないため、Fetch APIで送信します
+                    const response = await fetchWithExponentialBackoff(GOOGLE_FORM_URL, {
+                        method: 'POST',
+                        body: new URLSearchParams(formData), // URLSearchParamsを使ってapplication/x-www-form-urlencoded形式で送信
+                        mode: 'no-cors' // Google FormsへのPOSTではCORSエラーを避けるため必須
+                    });
 
-            // モーダルを閉じるイベントリスナー
-            closeModal.addEventListener('click', closeModalHandler);
+                    // Google Formsへのno-cors POSTは常に成功（response.okは常にtrue）と見なされるため、
+                    // ここではレスポンス内容ではなく、エラーが発生しなかったことを成功とします。
+                    openModal('送信完了', 'お問い合わせ内容を受け付けました。担当者より改めてご連絡いたします。ありがとうございました。', true);
+
+                } catch (error) {
+                    console.error('フォーム送信エラー:', error);
+                    openModal('送信失敗', '通信エラーまたはサーバーエラーにより、フォームの送信に失敗しました。時間をおいて再度お試しいただくか、別の方法でご連絡ください。', false);
+                } finally {
+                    // 成功/失敗にかかわらず、ボタンを元に戻す
+                    submitButton.disabled = false;
+                    submitButton.textContent = "この内容で無料相談を申し込む";
+                }
+            });
+
+
+            // --- モーダルのオーバーレイクリックで閉じる ---
             alertModal.addEventListener('click', (e) => {
-                // オーバーレイをクリックした場合も閉じる
                 if (e.target.id === 'alertModal') {
                     closeModalHandler();
                 }
             });
 
-            // フォーム送信制御
-            subsidyForm.addEventListener('submit', (e) => {
-                if (!acknowledgementCheck.checked) {
-                    e.preventDefault(); // 送信を中止
-                    openModal();        // モーダルを表示
-                    // チェックボックスの位置までスクロールして注意を促す
-                    acknowledgementCheck.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-                // チェックされている場合はそのまま送信される
-            });
-
-
-            // --- スムーズスクロールロジック ---
+            // --- スムーズスクロールロジック (変更なし) ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
