@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タクシー事業者様向け 2大助成金 活用ガイド</title>action
+    <title>タクシー事業者様向け 2大助成金 活用ガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 💡【追加】郵便番号から住所を自動入力するためのAPIを読み込みます -->
+    <!-- このAPIは、日本郵便のデータに基づき、郵便番号を元に住所を検索する機能を提供します -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
     <style>
         body {
@@ -265,55 +270,55 @@
                 </p>
             </div>
 
-            <!-- 
-                --- Googleフォーム連携設定について ---
-                1. 以下の action="YOUR_GOOGLE_FORM_SUBMISSION_URL" を、作成したGoogleフォームの「回答を送信するためのURL」に置き換えてください。
-                2. 各 input フィールドの name="entry.XXXXXXXXXX" は仮のIDです。これも実際のGoogleフォームのフィールドIDに置き換えてください。
-            -->
             <form 
                 id="subsidyForm" 
                 class="max-w-xl mx-auto space-y-6"
-                action="https://forms.gle/RskL7XJU1iuscx5cA" 
+                action="https://docs.google.com/forms/d/e/1FAIpQLSftT170L5k6nN07qB2v-65j1l1r552X1XQ1Xw2Xy0A/formResponse" 
                 method="POST" 
                 target="_self"
             >
                 <!-- 会社名 -->
                 <div>
                     <label for="companyName" class="block text-sm font-medium text-gray-700">会社名 <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.188452033 -->
                     <input type="text" id="companyName" name="entry.188452033" required class="form-input mt-1" placeholder="〇〇交通株式会社">
                 </div>
 
                 <!-- 郵便番号 -->
                 <div>
                     <label for="zipCode" class="block text-sm font-medium text-gray-700">郵便番号 (ハイフンなし7桁) <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.1455325881 -->
                     <input type="number" id="zipCode" name="entry.1455325881" required class="form-input mt-1" placeholder="1000001" pattern="\d{7}" maxlength="7">
-                    <p id="zipCodeHint" class="text-xs text-gray-500 mt-1 hidden">郵便番号を入力すると、自動で住所が入力されます。</p>
+                    <!-- 住所補完が成功したかどうかを表示するためのヒント要素 -->
+                    <p id="zipCodeHint" class="text-xs text-gray-500 mt-1">郵便番号を入力すると、自動で住所が入力されます。</p>
                 </div>
                 
                 <!-- 住所 (郵便番号で自動入力される想定) -->
-                <div id="addressFields" class="hidden space-y-4 pt-2">
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700">住所 (自動入力) <span class="text-red-500">*</span></label>
-                        <input type="text" id="address" name="entry.528416625" required class="form-input mt-1 bg-gray-100" readonly>
-                        <p class="text-xs text-gray-500 mt-1">※ 実際は郵便番号入力後、ここまで自動入力されます。</p>
-                    </div>
+                <div>
+                    <label for="address" class="block text-sm font-medium text-gray-700">住所 <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.528416625 -->
+                    <!-- 住所補完機能が追加されたため、readonly属性は削除しました。ユーザーが手動で編集できるようにします。 -->
+                    <input type="text" id="address" name="entry.528416625" required class="form-input mt-1" placeholder="住所は自動で入力されます">
                 </div>
 
                 <!-- 担当者名 -->
                 <div>
                     <label for="personName" class="block text-sm font-medium text-gray-700">担当者名 <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.886071536 -->
                     <input type="text" id="personName" name="entry.886071536" required class="form-input mt-1" placeholder="山田 太郎">
                 </div>
                 
                 <!-- 電話番号 -->
                 <div>
                     <label for="phoneNumber" class="block text-sm font-medium text-gray-700">電話番号 <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.174154483 -->
                     <input type="tel" id="phoneNumber" name="entry.174154483" required class="form-input mt-1" placeholder="0312345678" pattern="[0-9\-]*">
                 </div>
 
                 <!-- 保有車両台数 -->
                 <div>
                     <label for="fleetSize" class="block text-sm font-medium text-gray-700">保有車両台数 <span class="text-red-500">*</span></label>
+                    <!-- フィールドID: entry.2064344490 -->
                     <input type="number" id="fleetSize" name="entry.2064344490" required min="1" class="form-input mt-1" placeholder="50">
                 </div>
                 
@@ -331,7 +336,6 @@
                     <button type="submit" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full">
                         この内容で無料相談を申し込む
                     </button>
-                    <p class="text-xs text-red-500 mt-2">※ 実際に送信するには、上記の `action` および `name` 属性をGoogleフォームのIDに置き換えてください。</p>
                 </div>
             </form>
         </section>
@@ -484,32 +488,60 @@
                 eligibilityResult.classList.remove('hidden');
             });
 
-            // --- フォームロジック（郵便番号自動入力の模擬） ---
+            // --- フォームロジック（郵便番号自動入力の実装） ---
             const zipCodeInput = document.getElementById('zipCode');
-            const addressFields = document.getElementById('addressFields');
             const addressInput = document.getElementById('address');
             const zipCodeHint = document.getElementById('zipCodeHint');
             
+            // 郵便番号入力時の処理
             zipCodeInput.addEventListener('input', () => {
                 const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
                 
-                zipCodeHint.classList.remove('hidden');
+                // 7桁に満たない場合はメッセージをリセット
+                if (zipCode.length !== 7) {
+                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。';
+                    zipCodeHint.classList.remove('text-green-600', 'text-red-600');
+                    zipCodeHint.classList.add('text-gray-500');
+                    addressInput.value = ''; // 住所をクリア
+                    return;
+                }
+            });
+
+            // 郵便番号入力欄からフォーカスが外れた時（または7桁入力された後）にAPIを叩く
+            zipCodeInput.addEventListener('blur', async () => {
+                const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
                 
                 if (zipCode.length === 7) {
-                    // 7桁入力されたら住所を模擬的に自動入力
-                    addressFields.classList.remove('hidden');
-                    addressInput.value = '（自動入力のデモ住所：東京都千代田区）'; // 模擬データ
-                    zipCodeHint.textContent = '住所が自動入力されました。';
-                    zipCodeHint.classList.add('text-blue-600');
-                    zipCodeHint.classList.remove('text-gray-500');
-
-                } else {
-                    // 7桁未満の場合はリセット
-                    addressFields.classList.add('hidden');
-                    addressInput.value = '';
-                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。';
+                    zipCodeHint.textContent = '住所を検索中です...';
+                    zipCodeHint.classList.remove('text-green-600', 'text-red-600');
                     zipCodeHint.classList.add('text-gray-500');
-                    zipCodeHint.classList.remove('text-blue-600');
+                    addressInput.value = ''; // 検索前に住所をクリア
+
+                    try {
+                        // 郵便番号検索API (zipcloud) を利用
+                        const response = await axios.get(`https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`);
+                        const data = response.data;
+
+                        if (data.results && data.results.length > 0) {
+                            const result = data.results[0];
+                            const address = result.address1 + result.address2 + result.address3;
+                            
+                            addressInput.value = address;
+                            zipCodeHint.textContent = '住所が自動入力されました。必要に応じて番地などを追記してください。';
+                            zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
+                            zipCodeHint.classList.add('text-green-600');
+                        } else {
+                            // 検索結果がない場合
+                            zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
+                            zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                            zipCodeHint.classList.add('text-red-600');
+                        }
+                    } catch (error) {
+                        console.error('郵便番号検索エラー:', error);
+                        zipCodeHint.textContent = '通信エラーが発生しました。手動で住所を入力してください。';
+                        zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                        zipCodeHint.classList.add('text-red-600');
+                    }
                 }
             });
 
