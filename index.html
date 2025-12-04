@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タクシー事業者様向け 2大助成金 活用ガイド</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Noto Sans JP フォント -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- 💡【追加】郵便番号から住所を自動入力するためのAPIを読み込みます -->
-    <!-- このAPIは、日本郵便のデータに基づき、郵便番号を元に住所を検索する機能を提供します -->
+    <!-- 郵便番号から住所を自動入力するためのAPI (Axiosライブラリ) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
-    <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
+    <!-- スタイル設定 -->
     <style>
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #FDFBF8;
-            color: #374151;
+            background-color: #FDFBF8; /* 明るいオフホワイト */
+            color: #374151; /* ダークグレー */
         }
         .hero-bg {
+            /* ヒーローイメージ（プレースホルダー） */
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://placehold.co/1200x600/3B82F6/FFFFFF?text=TAXI');
             background-size: cover;
             background-position: center;
         }
-        .accent-color { background-color: #3B82F6; }
+        .accent-color { background-color: #3B82F6; } /* プロフェッショナルブルー */
         .accent-color-text { color: #3B82F6; }
         .section-card {
             background-color: #FFFFFF;
@@ -41,7 +43,7 @@
             border-left: 3px solid #3B82F6;
         }
         .step-item:last-child {
-            border-left: 3px solid transparent;
+            border-left: 3px solid transparent; /* 最後の線は非表示 */
         }
         .step-circle {
             background-color: #3B82F6;
@@ -50,13 +52,14 @@
             height: 2.5rem;
         }
         .cta-button {
-            background-color: #2563EB;
+            background-color: #2563EB; /* 青の濃い色 */
             color: white;
             transition: background-color 0.3s;
         }
         .cta-button:hover {
             background-color: #1D4ED8;
         }
+        /* シミュレーター用スライダーのカスタムスタイル */
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -72,10 +75,6 @@
             background: #3B82F6;
             cursor: pointer;
             border-radius: 50%;
-        }
-        /* サポート料金のフォントサイズを調整 */
-        .text-2xs {
-            font-size: 0.65rem; 
         }
         /* フォーム共通スタイル */
         .form-input {
@@ -128,13 +127,13 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- Header (Sticky) -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold accent-color-text">
                 <span class="text-gray-600">助成金活用</span>ガイド
             </div>
-            <a href="#contact" class="cta-button font-bold py-2 px-4 rounded-lg shadow-md">
+            <a href="#contact" class="cta-button font-bold py-2 px-4 rounded-lg shadow-lg">
                 無料相談フォーム
             </a>
         </nav>
@@ -145,7 +144,7 @@
         
         <!-- Hero Section -->
         <section class="text-center mb-16">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-4">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 leading-tight mb-4">
                 <span class="accent-color-text">新人運転手を雇用するとき、活用できます！</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -153,7 +152,7 @@
             </p>
         </section>
 
-        <!-- Interactive Subsidy Simulator (2種統合・2期支給対応) -->
+        <!-- Interactive Subsidy Simulator -->
         <section id="simulator" class="section-card p-6 md:p-8 mb-12">
             <div class="text-center mb-6">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-800">2大助成金 合計助成額シミュレーター（1人あたり）</h2>
@@ -175,7 +174,7 @@
                 </div>
 
 
-                <div class="mt-8 bg-blue-50 p-6 rounded-lg">
+                <div class="mt-8 bg-blue-50 p-6 rounded-lg border-2 border-blue-300">
                     
                     <!-- 助成金の内訳グリッド -->
                     <div class="grid grid-cols-3 gap-4 text-center border-b pb-4 mb-4 border-blue-200">
@@ -197,7 +196,7 @@
                     </div>
 
                     <p class="text-lg text-gray-700 text-center">予想される**合計**助成金額</p>
-                    <p class="text-4xl md:text-5xl font-bold accent-color-text my-2 text-center">¥<span id="totalSubsidy">974,000</span></p>
+                    <p class="text-5xl font-extrabold accent-color-text my-2 text-center">¥<span id="totalSubsidy">974,000</span></p>
                     
                     <hr class="my-4 border-blue-200">
                     <p class="text-sm text-gray-700 text-center">当事務所のサポート報酬 (税別)</p>
@@ -226,12 +225,12 @@
                     <input id="check3" name="check3" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                     <label for="check3" class="ml-3 block text-md text-gray-700">6ヶ月以上の有期雇用期間を経て、正規雇用（正社員）に転換する予定がある</label>
                 </div>
-                <button id="checkButton" class="w-full mt-6 cta-button font-bold py-3 px-4 rounded-lg shadow-md">診断する</button>
+                <button id="checkButton" class="w-full mt-6 cta-button font-bold py-3 px-4 rounded-lg shadow-xl">診断する</button>
                 <div id="eligibilityResult" class="hidden mt-4 p-4 rounded-md text-center"></div>
             </div>
         </section>
 
-        <!-- Simple Process Flow (キャリアアップ含む) -->
+        <!-- Simple Process Flow -->
         <section id="process" class="section-card p-6 md:p-8 mb-12">
             <div class="text-center mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-800">助成金連携による**最大約100万円**達成の流れ</h2>
@@ -261,12 +260,12 @@
             </div>
         </section>
 
-        <!-- Contact Form Section (Google Forms Integration) -->
-        <section id="contact" class="bg-white rounded-lg shadow-lg p-8 md:p-12">
+        <!-- Contact Form Section -->
+        <section id="contact" class="bg-white rounded-lg shadow-2xl p-8 md:p-12 border-t-4 border-blue-500">
              <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold accent-color-text">無料相談・お問い合わせフォーム</h2>
+                <h2 class="text-3xl font-extrabold accent-color-text">無料相談・お問い合わせフォーム</h2>
                 <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">
-                    ご入力いただいたデータはGoogleフォームを通じて安全に送信されます。
+                    まずは無料シミュレーション結果を元に、詳細な受給可能性についてお話しましょう。
                 </p>
             </div>
 
@@ -284,21 +283,19 @@
                     <input type="text" id="companyName" name="entry.188452033" required class="form-input mt-1" placeholder="〇〇交通株式会社">
                 </div>
 
-                <!-- 郵便番号 -->
+                <!-- 郵便番号 (自動入力機能付き) -->
                 <div>
                     <label for="zipCode" class="block text-sm font-medium text-gray-700">郵便番号 (ハイフンなし7桁) <span class="text-red-500">*</span></label>
                     <!-- フィールドID: entry.1455325881 -->
                     <input type="number" id="zipCode" name="entry.1455325881" required class="form-input mt-1" placeholder="1000001" pattern="\d{7}" maxlength="7">
-                    <!-- 住所補完が成功したかどうかを表示するためのヒント要素 -->
                     <p id="zipCodeHint" class="text-xs text-gray-500 mt-1">郵便番号を入力すると、自動で住所が入力されます。</p>
                 </div>
                 
-                <!-- 住所 (郵便番号で自動入力される想定) -->
+                <!-- 住所 -->
                 <div>
                     <label for="address" class="block text-sm font-medium text-gray-700">住所 <span class="text-red-500">*</span></label>
                     <!-- フィールドID: entry.528416625 -->
-                    <!-- 住所補完機能が追加されたため、readonly属性は削除しました。ユーザーが手動で編集できるようにします。 -->
-                    <input type="text" id="address" name="entry.528416625" required class="form-input mt-1" placeholder="住所は自動で入力されます">
+                    <input type="text" id="address" name="entry.528416625" required class="form-input mt-1" placeholder="自動入力後、番地・建物名を追記してください">
                 </div>
 
                 <!-- 担当者名 -->
@@ -322,8 +319,8 @@
                     <input type="number" id="fleetSize" name="entry.2064344490" required min="1" class="form-input mt-1" placeholder="50">
                 </div>
                 
-                <!-- 助成金支給確約チェックボックス (文言変更) -->
-                <div class="pt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <!-- 助成金支給確約チェックボックス -->
+                <div class="pt-4 p-4 bg-red-50 border border-red-300 rounded-lg">
                     <div class="flex items-start">
                         <input id="acknowledgementCheck" type="checkbox" class="mt-1 h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
                         <label for="acknowledgementCheck" class="ml-3 block text-sm font-medium text-red-700">
@@ -333,7 +330,7 @@
                 </div>
 
                 <div class="text-center pt-4">
-                    <button type="submit" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full">
+                    <button type="submit" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full transform transition hover:scale-[1.01]">
                         この内容で無料相談を申し込む
                     </button>
                 </div>
@@ -390,7 +387,6 @@
     <div id="alertModal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="text-xl font-bold text-red-600 mb-4">確認が必要です</h3>
-            <!-- モーダル内の文言を更新 -->
             <p class="text-gray-700 mb-6">フォームを送信するには、**助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。**のチェックボックスにチェックを入れてください。</p>
             <button id="closeModal" class="w-full cta-button font-bold py-2 px-4 rounded-lg">閉じる</button>
         </div>
@@ -493,20 +489,6 @@
             const addressInput = document.getElementById('address');
             const zipCodeHint = document.getElementById('zipCodeHint');
             
-            // 郵便番号入力時の処理
-            zipCodeInput.addEventListener('input', () => {
-                const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
-                
-                // 7桁に満たない場合はメッセージをリセット
-                if (zipCode.length !== 7) {
-                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。';
-                    zipCodeHint.classList.remove('text-green-600', 'text-red-600');
-                    zipCodeHint.classList.add('text-gray-500');
-                    addressInput.value = ''; // 住所をクリア
-                    return;
-                }
-            });
-
             // 郵便番号入力欄からフォーカスが外れた時（または7桁入力された後）にAPIを叩く
             zipCodeInput.addEventListener('blur', async () => {
                 const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
@@ -515,32 +497,48 @@
                     zipCodeHint.textContent = '住所を検索中です...';
                     zipCodeHint.classList.remove('text-green-600', 'text-red-600');
                     zipCodeHint.classList.add('text-gray-500');
-                    addressInput.value = ''; // 検索前に住所をクリア
+                    // addressInput.value = ''; // 検索前に住所をクリアしない（ユーザーが追記した内容を残すため）
 
-                    try {
-                        // 郵便番号検索API (zipcloud) を利用
-                        const response = await axios.get(`https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`);
-                        const data = response.data;
+                    // Exponential Backoff for API calls
+                    const maxRetries = 5;
+                    let attempt = 0;
 
-                        if (data.results && data.results.length > 0) {
-                            const result = data.results[0];
-                            const address = result.address1 + result.address2 + result.address3;
-                            
-                            addressInput.value = address;
-                            zipCodeHint.textContent = '住所が自動入力されました。必要に応じて番地などを追記してください。';
-                            zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
-                            zipCodeHint.classList.add('text-green-600');
-                        } else {
-                            // 検索結果がない場合
-                            zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
-                            zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                            zipCodeHint.classList.add('text-red-600');
+                    while (attempt < maxRetries) {
+                        try {
+                            // 郵便番号検索API (zipcloud) を利用
+                            const response = await axios.get(`https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`);
+                            const data = response.data;
+
+                            if (data.results && data.results.length > 0) {
+                                const result = data.results[0];
+                                // 都道府県、市区町村、町域までを結合して入力
+                                const address = result.address1 + result.address2 + result.address3;
+                                
+                                addressInput.value = address;
+                                zipCodeHint.textContent = '住所が自動入力されました。必要に応じて番地などを追記してください。';
+                                zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
+                                zipCodeHint.classList.add('text-green-600');
+                            } else {
+                                // 検索結果がない場合
+                                zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
+                                zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                                zipCodeHint.classList.add('text-red-600');
+                            }
+                            return; // 成功したらループを抜ける
+                        } catch (error) {
+                            attempt++;
+                            if (attempt < maxRetries) {
+                                // Exponential Backoff: 1s, 2s, 4s, 8s, 16s
+                                const delay = Math.pow(2, attempt) * 1000;
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                            } else {
+                                // 最終的なエラー処理
+                                console.error('郵便番号検索エラー:', error);
+                                zipCodeHint.textContent = '通信エラーが発生しました。手動で住所を入力してください。';
+                                zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
+                                zipCodeHint.classList.add('text-red-600');
+                            }
                         }
-                    } catch (error) {
-                        console.error('郵便番号検索エラー:', error);
-                        zipCodeHint.textContent = '通信エラーが発生しました。手動で住所を入力してください。';
-                        zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                        zipCodeHint.classList.add('text-red-600');
                     }
                 }
             });
