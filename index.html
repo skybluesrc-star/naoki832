@@ -47,13 +47,8 @@
             color: white;
             transition: background-color 0.3s;
         }
-        .cta-button:hover:not(:disabled) {
+        .cta-button:hover {
             background-color: #1D4ED8;
-        }
-        .cta-button:disabled {
-            background-color: #9CA3AF;
-            cursor: not-allowed;
-            color: #D1D5DB;
         }
         .form-input {
             width: 100%;
@@ -67,40 +62,6 @@
             box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
             outline: none;
         }
-
-        /* カスタムモーダルのスタイル */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-width: 90%;
-            width: 400px;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.open .modal-content {
-            transform: scale(1);
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -111,9 +72,9 @@
             <div class="text-2xl font-bold accent-color-text">
                 <span class="text-gray-600">助成金活用</span>ガイド
             </div>
-            <!-- 無料相談ボタンも初期化中は無効にする -->
-            <a href="#contact" id="headerCta" class="cta-button font-bold py-2 px-4 rounded-lg shadow-lg">
-                システムを初期化中...
+            <!-- Googleフォームへの直接リンク -->
+            <a href="#contact" class="cta-button font-bold py-2 px-4 rounded-lg shadow-lg">
+                無料相談はこちら
             </a>
         </nav>
     </header>
@@ -239,78 +200,21 @@
             </div>
         </section>
 
-        <!-- Contact Form Section -->
-        <section id="contact" class="bg-white rounded-lg shadow-2xl p-8 md:p-12 border-t-4 border-blue-500">
-             <div class="text-center mb-8">
-                <h2 class="text-3xl font-extrabold accent-color-text">無料相談・お問い合わせフォーム</h2>
+        <!-- CTA/Link Section (Google Form) -->
+        <section id="contact" class="bg-white rounded-lg shadow-2xl p-8 md:p-12 border-t-4 border-blue-500 text-center">
+             <div class="mb-8">
+                <h2 class="text-3xl font-extrabold accent-color-text">Googleフォームで無料相談を申し込む</h2>
                 <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">
-                    まずは無料シミュレーション結果を元に、詳細な受給可能性についてお話しましょう。
+                    シミュレーション結果を元に、詳細な受給可能性について専門家がお答えします。
                 </p>
-                <!-- ユーザーID表示（デバッグ・連携確認用） -->
-                <p id="authStatus" class="text-xs text-gray-400 mt-2">システムを初期化中...</p>
+                <p class="text-sm text-gray-500 mt-1">※ ボタンをクリックすると、外部のGoogleフォームへ遷移します。</p>
             </div>
 
-            <form id="subsidyForm" class="max-w-xl mx-auto space-y-6">
-                <!-- 会社名 -->
-                <div>
-                    <label for="companyName" class="block text-sm font-medium text-gray-700">会社名 <span class="text-red-500">*</span></label>
-                    <input type="text" id="companyName" name="companyName" required class="form-input mt-1" placeholder="〇〇交通株式会社">
-                </div>
-
-                <!-- 郵便番号 -->
-                <div>
-                    <label for="zipCode" class="block text-sm font-medium text-gray-700">郵便番号 (ハイフンなし7桁) <span class="text-red-500">*</span></label>
-                    <input type="number" id="zipCode" name="zipCode" required class="form-input mt-1" placeholder="1000001" pattern="\d{7}" maxlength="7">
-                    <p id="zipCodeHint" class="text-xs text-gray-500 mt-1">郵便番号を入力すると、自動で住所が入力されます。通信エラーの場合は手動で入力をお願いします。</p>
-                </div>
-                
-                <!-- 住所 -->
-                <div>
-                    <label for="address" class="block text-sm font-medium text-gray-700">住所 <span class="text-red-500">*</span></label>
-                    <input type="text" id="address" name="address" required class="form-input mt-1" placeholder="自動入力後、番地・建物名を追記してください">
-                </div>
-
-                <!-- 担当者名 -->
-                <div>
-                    <label for="personName" class="block text-sm font-medium text-gray-700">担当者名 <span class="text-red-500">*</span></label>
-                    <input type="text" id="personName" name="personName" required class="form-input mt-1" placeholder="山田 太郎">
-                </div>
-                
-                <!-- メールアドレス -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス <span class="text-red-500">*</span></label>
-                    <input type="email" id="email" name="email" required class="form-input mt-1" placeholder="example@company.co.jp">
-                </div>
-
-                <!-- 電話番号 -->
-                <div>
-                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">電話番号 <span class="text-red-500">*</span></label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" required class="form-input mt-1" placeholder="0312345678" pattern="[0-9\-]*">
-                </div>
-
-                <!-- 保有車両台数 -->
-                <div>
-                    <label for="fleetSize" class="block text-sm font-medium text-gray-700">保有車両台数 <span class="text-red-500">*</span></label>
-                    <input type="number" id="fleetSize" name="fleetSize" required min="1" class="form-input mt-1" placeholder="50">
-                </div>
-                
-                <!-- 助成金支給確約チェックボックス -->
-                <div class="pt-4 p-4 bg-red-50 border border-red-300 rounded-lg">
-                    <div class="flex items-start">
-                        <input id="acknowledgementCheck" type="checkbox" class="mt-1 h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="acknowledgementCheck" class="ml-3 block text-sm font-medium text-red-700">
-                            助成金については労働局での審査があるため、委託したとしても支給が保証されるものではないことについて理解しました。
-                        </label>
-                    </div>
-                </div>
-
-                <div class="text-center pt-4">
-                    <!-- 初期状態でボタンを無効化し、テキストを初期化中に変更 -->
-                    <button type="submit" id="submitButton" disabled class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full transform transition hover:scale-[1.01]">
-                        システムを初期化中...
-                    </button>
-                </div>
-            </form>
+            <!-- Googleフォームへのリンクを設定したボタン -->
+            <!-- 🚨【重要】ここにGoogleフォームの実際のURLを設定してください。🚨 -->
+            <a href="https://forms.gle/jq8ckdNZeShGHHEq9" target="_blank" id="submitButton" class="cta-button inline-block font-bold py-3 px-8 rounded-lg shadow-xl text-lg w-full max-w-lg transform transition hover:scale-[1.01]">
+                Googleフォームで無料相談を申し込む
+            </a>
         </section>
 
         <!-- FAQ / Details (省略) -->
@@ -356,93 +260,13 @@
             <p>&copy; 2025 ●●社会保険労務士事務所. All Rights Reserved. (助成金金額は令和7年度の動向を想定)</p>
         </div>
     </footer>
-    
-    <!-- カスタムモーダル (アラートの代替) -->
-    <div id="alertModal" class="modal-overlay">
-        <div class="modal-content" id="modalContent">
-            <!-- コンテンツはJSで動的に挿入されます -->
-        </div>
-    </div>
 
 
-    <!-- Firebase SDKのインポート -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, setDoc, doc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Firestoreのデバッグレベルを設定
-        setLogLevel('Debug');
-
-        // グローバル変数を取得し、未定義の場合はデフォルト値を設定
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let app, db, auth, userId = null;
-        let isAuthReady = false;
-
-        // --- Firebase初期化と認証 ---
-        try {
-            // Firebase初期化
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-
-            // 要素の取得
-            const submitButton = document.getElementById('submitButton');
-            const headerCta = document.getElementById('headerCta');
-            const authStatus = document.getElementById('authStatus');
-
-            // 認証状態の監視
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    // 認証完了
-                    userId = user.uid;
-                    isAuthReady = true;
-                    // UIを更新してボタンを有効化
-                    authStatus.textContent = `認証完了 (ID: ${userId})`;
-                    submitButton.disabled = false;
-                    submitButton.textContent = "この内容で無料相談を申し込む";
-                    headerCta.disabled = false;
-                    headerCta.textContent = "無料相談フォーム";
-
-                } else {
-                    // 認証されていない場合は匿名認証を試みる
-                    try {
-                        if (initialAuthToken) {
-                            await signInWithCustomToken(auth, initialAuthToken);
-                        } else {
-                            await signInAnonymously(auth);
-                        }
-                    } catch (error) {
-                        console.error("Firebase Auth failed:", error);
-                        isAuthReady = true; // 認証試行は完了
-                        // 認証失敗の場合もボタンを有効化し、エラーメッセージを表示
-                        authStatus.textContent = `認証エラーが発生しました。データを保存できません。`;
-                        submitButton.disabled = true;
-                        submitButton.textContent = "システムエラーにより送信不可";
-                        headerCta.disabled = true;
-                        headerCta.textContent = "システムエラー";
-                    }
-                }
-            });
-
-        } catch (e) {
-            console.error("Firebase initialization failed:", e);
-            document.getElementById('authStatus').textContent = `Firebase初期化エラー。`;
-        }
-
-        // --- 定数と要素の取得（Auth関連以外のもの） ---
+    <script>
+        // --- 定数と要素の取得 ---
         const drivingFeeSlider = document.getElementById('drivingFee');
         const trainingHoursSlider = document.getElementById('trainingHours');
         const checkButton = document.getElementById('checkButton');
-        
-        const subsidyForm = document.getElementById('subsidyForm');
-        const acknowledgementCheck = document.getElementById('acknowledgementCheck');
-        
-        const alertModal = document.getElementById('alertModal');
-        const modalContent = document.getElementById('modalContent');
         
         // 助成金定数 (令和7年度想定)
         const WAGE_SUBSIDY_RATE = 800;
@@ -459,46 +283,6 @@
             return Math.floor(amount / 100) * 100;
         }
 
-        function openModal(title, message, isSuccess = false) {
-            const submitButton = document.getElementById('submitButton');
-            let color = isSuccess ? 'text-green-600' : 'text-red-600';
-            modalContent.innerHTML = `
-                <h3 class="text-xl font-bold ${color} mb-4">${title}</h3>
-                <p class="text-gray-700 mb-6">${message}</p>
-                <button id="closeModal" class="w-full cta-button font-bold py-2 px-4 rounded-lg">閉じる</button>
-            `;
-            document.getElementById('closeModal').addEventListener('click', closeModalHandler);
-            alertModal.classList.add('open');
-            // モーダルが開いたとき、送信ボタンがローディング状態なら元に戻す
-            if (submitButton.textContent === "データを保存中...") {
-                submitButton.textContent = "この内容で無料相談を申し込む";
-                if(isAuthReady) submitButton.disabled = false;
-            }
-        }
-
-        function closeModalHandler() {
-            alertModal.classList.remove('open');
-        }
-        
-        // 指数バックオフ付きのFetch関数 (郵便番号検索用)
-        async function fetchWithExponentialBackoff(url, options = {}, maxRetries = 3) {
-            for (let attempt = 0; attempt < maxRetries; attempt++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response;
-                } catch (error) {
-                    if (attempt === maxRetries - 1) {
-                        console.error("Fetch failed after all retries:", error);
-                        throw error;
-                    }
-                    const delay = Math.pow(2, attempt) * 500; // 0.5s, 1s, 2s, ...
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                }
-            }
-        }
 
         // --- シミュレーターロジック ---
         function updateSimulator() {
@@ -551,150 +335,10 @@
             eligibilityResult.classList.remove('hidden');
         });
 
-        // --- フォームロジック（郵便番号自動入力） ---
-        const zipCodeInput = document.getElementById('zipCode');
-        const addressInput = document.getElementById('address');
-        const zipCodeHint = document.getElementById('zipCodeHint');
-        let isSearching = false; 
-
-        zipCodeInput.addEventListener('input', async () => {
-            const zipCode = zipCodeInput.value.replace(/[^0-9]/g, ''); 
-            
-            if (zipCode.length !== 7 || isSearching) {
-                if (zipCode.length > 7) {
-                    zipCodeHint.textContent = '郵便番号は7桁までです。';
-                    zipCodeHint.classList.add('text-red-600');
-                    zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                } else if (zipCode.length > 0) {
-                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。通信エラーの場合は手動で入力をお願いします。';
-                    zipCodeHint.classList.add('text-gray-500');
-                    zipCodeHint.classList.remove('text-red-600', 'text-green-600');
-                } else {
-                    zipCodeHint.textContent = '郵便番号を入力すると、自動で住所が入力されます。通信エラーの場合は手動で入力をお願いします。';
-                    zipCodeHint.classList.add('text-gray-500');
-                    zipCodeHint.classList.remove('text-red-600', 'text-green-600');
-                }
-                return;
-            }
-
-            isSearching = true; 
-            zipCodeHint.textContent = '住所を検索中です...';
-            zipCodeHint.classList.remove('text-green-600', 'text-red-600');
-            zipCodeHint.classList.add('text-gray-500');
-            
-            const apiUrl = `https://zipcloud.hbrk.jp/api/search?zipcode=${zipCode}`;
-
-            try {
-                // API呼び出し
-                const response = await fetchWithExponentialBackoff(apiUrl);
-                const data = await response.json();
-
-                if (data.results && data.results.length > 0) {
-                    const result = data.results[0];
-                    // 都道府県、市区町村、町域を結合
-                    const address = result.address1 + result.address2 + result.address3;
-                    
-                    addressInput.value = address;
-                    zipCodeHint.textContent = '住所が自動入力されました。番地などを追記してください。';
-                    zipCodeHint.classList.remove('text-gray-500', 'text-red-600');
-                    zipCodeHint.classList.add('text-green-600');
-                } else {
-                    // 住所が見つからない場合
-                    zipCodeHint.textContent = '指定された郵便番号の住所は見つかりませんでした。手動で入力してください。';
-                    zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                    zipCodeHint.classList.add('text-red-600');
-                }
-            } catch (error) {
-                // 通信自体が失敗した場合
-                console.error('郵便番号検索エラー:', error);
-                // 以前より目立つエラー表示
-                zipCodeHint.textContent = '【エラー】通信に失敗しました。大変恐れ入りますが、住所は手動で入力してください。';
-                zipCodeHint.classList.remove('text-gray-500', 'text-green-600');
-                zipCodeHint.classList.add('text-red-600', 'font-bold');
-            } finally {
-                isSearching = false; 
-            }
-        });
-
-
-        // --- フォーム送信ロジック（Firestore保存方式） ---
-        subsidyForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); 
-            const submitButton = document.getElementById('submitButton');
-            
-            if (!acknowledgementCheck.checked) {
-                openModal('確認が必要です', 'フォームを送信するには、**助成金支給保証ではないことについての理解**のチェックボックスにチェックを入れてください。');
-                acknowledgementCheck.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
-            }
-
-            // 認証が完了していない場合はここでブロックされる（ボタンもdisabledになっているはず）
-            if (!isAuthReady || !userId || !db) {
-                openModal('システム準備中', 'システムがまだ初期化中です。数秒待ってから、ボタンが有効になったことを確認して、もう一度お試しください。', false);
-                return;
-            }
-            
-            // 送信ボタンを無効化し、ローディング表示
-            submitButton.disabled = true;
-            submitButton.textContent = "データを保存中...";
-
-            // フォームデータを取得し、保存用オブジェクトを作成
-            const contactData = {
-                companyName: document.getElementById('companyName').value,
-                zipCode: document.getElementById('zipCode').value,
-                address: document.getElementById('address').value,
-                personName: document.getElementById('personName').value,
-                email: document.getElementById('email').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                fleetSize: document.getElementById('fleetSize').value,
-                simulationData: {
-                    drivingFee: drivingFeeSlider.value,
-                    trainingHours: trainingHoursSlider.value,
-                    totalSubsidy: document.getElementById('totalSubsidy').textContent.replace(/,/g, ''),
-                },
-                acknowledgementChecked: true,
-                submissionTime: new Date().toISOString(),
-                // 認証済みユーザーIDを埋め込む (確認の確実性を高めるため)
-                submittedBy: userId 
-            };
-            
-            // Firestoreへの保存パスを決定
-            // パス: /artifacts/{appId}/public/data/consultations/{documentId}
-            const collectionPath = `artifacts/${appId}/public/data/consultations`;
-
-            try {
-                // Firestoreにデータを追加
-                const docRef = await addDoc(collection(db, collectionPath), contactData);
-
-                // 成功メッセージ
-                openModal('送信完了 (データ保存済)', 'お問い合わせ内容を受け付けました。当アプリのデータベースにデータが保存されましたので、担当者より改めてご連絡いたします。ありがとうございました。', true);
-                subsidyForm.reset(); // フォームをリセット
-
-            } catch (error) {
-                console.error('Firestoreへのデータ保存エラー:', error);
-                // Firestore保存エラーが発生した場合
-                openModal('送信失敗', 'データベースへの保存に失敗しました。システムのエラーです。時間をおいて再度お試しいただくか、担当者まで直接ご連絡ください。', false);
-            } finally {
-                // 成功/失敗にかかわらず、ボタンを元に戻す処理はopenModal内で行う
-            }
-        });
-
-
-        // --- モーダルのオーバーレイクリックで閉じる ---
-        alertModal.addEventListener('click', (e) => {
-            if (e.target.id === 'alertModal') {
-                closeModalHandler();
-            }
-        });
-
         // --- スムーズスクロールロジック ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                // 認証完了後のヘッダーボタンのみリンクとして機能するように修正
-                if (this.id === 'headerCta' && this.disabled) {
-                    return; 
-                }
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
